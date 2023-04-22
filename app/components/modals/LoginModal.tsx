@@ -18,8 +18,10 @@ import Button from "../Button";
 
 const LoginModal = () => {
   const router = useRouter();
+
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -51,6 +53,11 @@ const LoginModal = () => {
     });
   };
 
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
+
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Welcome back" subtitle="Login to your account!" />
@@ -81,13 +88,13 @@ const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn('google')}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => signIn('github')}
+        onClick={() => signIn("github")}
       />
       <div
         className="
@@ -98,9 +105,9 @@ const LoginModal = () => {
         "
       >
         <p>
-          Already have an account?
+          First time using Abnb?
           <span
-            onClick={() => {}}
+            onClick={toggle}
             className="
               text-neutral-800
               cursor-pointer 
@@ -108,7 +115,7 @@ const LoginModal = () => {
             "
           >
             {" "}
-            Log in
+            Create an account
           </span>
         </p>
       </div>
