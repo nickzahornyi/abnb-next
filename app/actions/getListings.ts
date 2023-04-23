@@ -11,23 +11,21 @@ export interface IListingsParams {
   category?: string;
 }
 
-export default async function getListings(
+export default async function getListings() {
 //   params: IListingsParams
-) {
   try {
-    
     const listings = await prisma.listing.findMany({
       orderBy: {
-        createdAt: 'desc'
-      }
+        createdAt: "desc",
+      },
     });
 
-    // const safeListings = listings.map((listing) => ({
-    //   ...listing,
-    //   createdAt: listing.createdAt.toISOString(),
-    // }));
+    const safeListings = listings.map((listing) => ({
+      ...listing,
+      createdAt: listing.createdAt.toISOString(),
+    }));
 
-    return listings;
+    return safeListings;
   } catch (error: any) {
     throw new Error(error);
   }
